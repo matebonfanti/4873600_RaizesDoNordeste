@@ -1,5 +1,5 @@
-package com.uninter._0.raizes.repository;
-import com.uninter._0.raizes.model.Cliente;
+package com.uninter.raizes.repository;
+import com.uninter.raizes.model.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.Optional;

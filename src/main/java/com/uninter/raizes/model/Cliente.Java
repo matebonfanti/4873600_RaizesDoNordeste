@@ -1,4 +1,4 @@
-package com.uninter._0.raizes.model;
+package com.uninter.raizes.model;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -44,7 +44,7 @@ public class Cliente {
 
 }
 // Como os construtores são gerados pelo lombok, nao implementei abaixo
-// Annotations @Collum são para dizer ao banco que pode ser nulo ou
+// Annotations @Collum são para dizer ao banco que nao pode ser nulo ou
 // nao pode se repetir.
 // ID é a chave primaria. -
 // 24/05 

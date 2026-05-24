@@ -1,14 +1,14 @@
-package com.uninter._0.raizes.service;
-import com.uninter._0.raizes.model.Cliente;
-import com.uninter._0.raizes.repository.ClienteService;
+package com.uninter.raizes.controller;
+
+import com.uninter.raizes.model.Cliente;
+import com.uninter.raizes.service.ClienteService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-
+import java.util.List;
 
 @RestController
 @RequestMapping("/clientes")
@@ -22,19 +22,13 @@ public class ClienteController{
     }
 
 
-    // DEPOIS IMPLEMENTAR O PADRÃO DE ERRO EM JSON CONFORME TRABALHO
-
-
     // ---------------- Cadastrar Cliente (Salvar) -----------------
     @PostMapping
     public ResponseEntity<Cliente> cadastrarCliente(@RequestBody Cliente cliente){
         Cliente clienteCadastrado = clienteService.salvarCliente(cliente);
-        if (clienteCadastrado != null){
-            return ResponseEntity.ok(clienteCadastrado);
-        } else {
-            return ResponseEntity.badRequest().build();
+        return ResponseEntity.ok(clienteCadastrado);
         }
-    }
+    
 
     // --------------- Consultar Cliente --------------
 
@@ -48,7 +42,7 @@ public class ClienteController{
         }
     }
 
-    @GetMapping("/{cpf}")
+    @GetMapping("/cpf/{cpf}")
     public ResponseEntity<Cliente> buscarClientePorCpf(@PathVariable String cpf){
 
         var cliente = clienteService.buscarClientePorCpf(cpf);
@@ -60,9 +54,9 @@ public class ClienteController{
     }
     
     // ---------------------- Listar Clientes ----------------------
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<Cliente>> listarClientes(){
-        List<Cliente> clientes = clienteService.ListarClientes();
+        List<Cliente> clientes = clienteService.listarClientes();
         return ResponseEntity.ok(clientes);
     }
 
@@ -75,7 +69,7 @@ public class ClienteController{
         } else {
             return ResponseEntity.notFound().build();
         }
-
+    }
 
     // ------------------ Pontos de fidelidade ------------------
     @GetMapping("/{id}/pontos")

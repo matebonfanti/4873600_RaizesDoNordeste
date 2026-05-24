@@ -1,6 +1,11 @@
-package com.uninter._0.raizes.service;
-import com.uninter._0.raizes.model.Cliente;
-import com.uninter._0.raizes.repository.ClienteRepository;
+package com.uninter.raizes.service;
+import com.uninter.raizes.model.Cliente;
+import com.uninter.raizes.repository.ClienteRepository;
+import org.springframework.stereotype.Service;
+import java.util.Optional;
+import java.util.List;
+
+
 
 @Service
 public class ClienteService {
@@ -13,25 +18,24 @@ public class ClienteService {
 public Cliente salvarCliente(Cliente cliente){
 
     // Se cliente nao aceitar lgpd retorna erro
-   if (cliente.getaceiteLgpd() == null || cliente.getaceiteLgpd() == false){
-        // implementar tratamento de erro posteriormente
-        return null;
+   if (cliente.getAceiteLgpd() == null || cliente.getAceiteLgpd() == false){
+        throw new IllegalArgumentException("O cliente deve aceitar os termos LGPD para seguir com o cadastro.");
     }
 
     // Se cpf for nulo ou vazio retorna um erro
     if (cliente.getCpf() == null || cliente.getCpf().isEmpty()){
-        // implementar tratamento de erro posteriormente
-        return null;
+        throw new IllegalArgumentException("O CPF é obrigatório.");
     }
+        
+    
     // se o CPF ja existe ele retorna erro, se não, salva
     if (clienteRepository.findByCpf(cliente.getCpf()).isPresent()){
-        // implementar tratamento de erro posteriormente
-        return null;
+        throw new IllegalArgumentException("O CPF já está cadastrado.");
     } else {
         return clienteRepository.save(cliente);
     }    
-
 }
+
 
 // ------------------------- Consultar CLiente ---------------------
     //por cpf
@@ -65,9 +69,9 @@ public Cliente atualizarDadosCliente(Integer id, Cliente novoCliente){
         return clienteRepository.save(cliente);
 
     }else {
-        // implementar tratamento de erro caso nao encontre o ID.
-        return null;
+        throw new IllegalArgumentException("Cliente não encontrado.");
     }
+}
 
 
 // ------------------ Pontos de fidelidade ------------------
@@ -76,7 +80,7 @@ public void somaPontos(Integer id, Integer pontos){
     Optional<Cliente> cliente = clienteRepository.findById(id);
     if (cliente.isPresent()) {
         Cliente clienteAtual = cliente.get();
-        clienteAtual.setPontos(clienteAtual.getPontos() + pontos);
+        clienteAtual.setPontosFidelidade(clienteAtual.getPontosFidelidade() + pontos);
         clienteRepository.save(clienteAtual);
     }
 }
@@ -85,10 +89,10 @@ public void menosPontos(Integer id, Integer pontos){
     Optional<Cliente> cliente = clienteRepository.findById(id);
     if (cliente.isPresent()) {
         Cliente clienteAtual = cliente.get();
-        if (clienteAtual.getpontosFidelidade() < pontos) {
-            // lançar execeção se os pontos forem menores do que podem tirar
+        if (clienteAtual.getPontosFidelidade() < pontos) {
+            throw new IllegalArgumentException("Pontos insuficientes para resgate.");
         } else {
-            clienteAtual.setpontosFidelidade(clienteAtual.getpontosFidelidade() - pontos);
+            clienteAtual.setPontosFidelidade(clienteAtual.getPontosFidelidade() - pontos);
         }
         clienteRepository.save(clienteAtual);
     }
@@ -97,10 +101,12 @@ public void menosPontos(Integer id, Integer pontos){
 public Integer consultaPontos(Integer id){
     Optional<Cliente> cliente = clienteRepository.findById(id);
     if (cliente.isPresent()) {
-        return cliente.get().getpontosFidelidade();
+        return cliente.get().getPontosFidelidade();
     } else {
-        // implementar tratamento de erro caso nao encontre o ID.
-        return null;
+        throw new IllegalArgumentException("Cliente não encontrado.");
+        
     }
+
+}
 
 }

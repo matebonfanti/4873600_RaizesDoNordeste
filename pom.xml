@@ -8,7 +8,7 @@
 		<version>4.0.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.uninter.4873600</groupId>
+	<groupId>com.uninter.raizes</groupId>
 	<artifactId>raizes</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name/>
