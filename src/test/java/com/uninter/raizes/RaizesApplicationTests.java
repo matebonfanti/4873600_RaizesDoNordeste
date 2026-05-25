@@ -1,4 +1,4 @@
-package com.uninter._0.raizes;
+package com.uninter.raizes;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

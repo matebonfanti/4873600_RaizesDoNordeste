@@ -25,14 +25,14 @@ public class ErroPadrao{
 
 @Data
 @AllArgsConstructor
-public class DetalhesErro{
+class DetalhesErro{
     private String campo;
     private String mensagem;
 }
 
 
 @RestControllerAdvice
-public class TratadordeErros{
+class TratadordeErros{
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErroPadrao> tratarIllegalArgumentException(IllegalArgumentException ex, HttpServletRequest request){
