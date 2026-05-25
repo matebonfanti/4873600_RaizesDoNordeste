@@ -9,8 +9,10 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 
     // Para consultar um cliente pelo CPF
     Optional<Cliente> findByCpf(String cpf);
+    Optional<Cliente> findByEmail(String email);
 }
 
 
 //Repositorio para o cliente com a opção de consulta por cpf.
 // 24/05
+// 25/05 - Adicionado consulta por email.

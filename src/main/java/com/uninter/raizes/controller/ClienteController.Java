@@ -3,6 +3,7 @@ package com.uninter.raizes.controller;
 import com.uninter.raizes.model.Cliente;
 import com.uninter.raizes.service.ClienteService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,9 +27,8 @@ public class ClienteController{
     @PostMapping
     public ResponseEntity<Cliente> cadastrarCliente(@RequestBody Cliente cliente){
         Cliente clienteCadastrado = clienteService.salvarCliente(cliente);
-        return ResponseEntity.ok(clienteCadastrado);
-        }
-    
+        return ResponseEntity.status(HttpStatus.CREATED).body(clienteCadastrado);
+    }
 
     // --------------- Consultar Cliente --------------
 
@@ -36,7 +36,7 @@ public class ClienteController{
     public ResponseEntity<Cliente> buscarClientePorId(@PathVariable Integer id){
         var cliente = clienteService.buscarClientePorId(id);
         if (cliente.isPresent()){
-            return ResponseEntity.ok(cliente.get());
+            return ResponseEntity.status(HttpStatus.OK).body(cliente.get());
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -47,7 +47,7 @@ public class ClienteController{
 
         var cliente = clienteService.buscarClientePorCpf(cpf);
         if (cliente.isPresent()){
-            return ResponseEntity.ok(cliente.get());
+            return ResponseEntity.status(HttpStatus.OK).body(cliente.get());
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -57,7 +57,7 @@ public class ClienteController{
     @GetMapping("/list")
     public ResponseEntity<List<Cliente>> listarClientes(){
         List<Cliente> clientes = clienteService.listarClientes();
-        return ResponseEntity.ok(clientes);
+        return ResponseEntity.status(HttpStatus.OK).body(clientes);
     }
 
     // ----------------------- Atualizar dados -----------------------
@@ -65,9 +65,9 @@ public class ClienteController{
     public ResponseEntity<Cliente> atualizarDadosCliente(@PathVariable Integer id, @RequestBody Cliente novoCliente){
         Cliente clienteAtualizado = clienteService.atualizarDadosCliente(id, novoCliente);
         if (clienteAtualizado != null){
-            return ResponseEntity.ok(clienteAtualizado);
+            return ResponseEntity.status(HttpStatus.OK).body(clienteAtualizado);
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
@@ -76,22 +76,22 @@ public class ClienteController{
     public ResponseEntity<Integer> consultarPontos(@PathVariable Integer id){
         Integer pontos = clienteService.consultaPontos(id);
         if (pontos != null){
-            return ResponseEntity.ok(pontos);
+            return ResponseEntity.status(HttpStatus.OK).body(pontos);
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }    
     }
 
     @PatchMapping("/{id}/pontos/soma")
     public ResponseEntity<Void> somaPontos(@PathVariable Integer id, @RequestParam Integer pontos){
         clienteService.somaPontos(id, pontos);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PatchMapping("/{id}/pontos/menos")
     public ResponseEntity<Void> menosPontos(@PathVariable Integer id, @RequestParam Integer pontos){
         clienteService.menosPontos(id, pontos);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 

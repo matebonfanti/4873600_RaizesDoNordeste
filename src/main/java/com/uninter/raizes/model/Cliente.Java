@@ -1,5 +1,5 @@
 package com.uninter.raizes.model;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,7 +34,7 @@ public class Cliente {
     private String telefone;
     
     @Column(nullable = false)
-    private LocalDateTime dataNascimento;
+    private LocalDate dataNascimento;
 
     @Column(nullable = false)
     private Boolean aceiteLgpd;
@@ -48,6 +48,10 @@ public class Cliente {
 // nao pode se repetir.
 // ID é a chave primaria. -
 // 24/05 
+
+//Melhorias para implementar futuramente:
+// - Não deixar alterar o ID e os pontos de fidelidade na requisição de cadastro. (Json
+)
 
 
 

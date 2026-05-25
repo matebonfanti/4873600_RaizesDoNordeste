@@ -26,14 +26,19 @@ public Cliente salvarCliente(Cliente cliente){
     if (cliente.getCpf() == null || cliente.getCpf().isEmpty()){
         throw new IllegalArgumentException("O CPF é obrigatório.");
     }
-        
     
-    // se o CPF ja existe ele retorna erro, se não, salva
+    // se o CPF ja existe ele retorna erro, 
     if (clienteRepository.findByCpf(cliente.getCpf()).isPresent()){
         throw new IllegalArgumentException("O CPF já está cadastrado.");
-    } else {
+    }
+    
+    // verifica o email, se ja ta cadasttrado retorna erro, se não, salva
+    if (clienteRepository.findByEmail(cliente.getEmail()).isPresent()) {
+        throw new IllegalArgumentException("O email já está cadastrado.");
+    }else {
         return clienteRepository.save(cliente);
-    }    
+    }
+
 }
 
 
