@@ -38,7 +38,7 @@ public class ClienteController{
         if (cliente.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(cliente.get());
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 

@@ -50,8 +50,11 @@ public class Cliente {
 // 24/05 
 
 //Melhorias para implementar futuramente:
-// - Não deixar alterar o ID e os pontos de fidelidade na requisição de cadastro. (Json
-)
+// - Não deixar alterar o ID e os pontos de fidelidade na requisição de cadastro. (Json "PUT")
+// - Nao deixar alterar o ID e os pontos no Patch na atualização dos dados.
+
+
+
 
 
 
