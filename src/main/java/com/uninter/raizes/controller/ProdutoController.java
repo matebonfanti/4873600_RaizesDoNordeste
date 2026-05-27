@@ -37,7 +37,7 @@ public class ProdutoController {
     @GetMapping("/list")
     public ResponseEntity<List<Produto>> listarProdutos(){
         List<Produto> produtos = produtoService.listarProdutos();
-        return ResponseEntity.status(HttpStatus.OK).body(produtos);
+        return ResponseEntity.status(HttpStatus.CREATED).body(produtos);
     }
 
 // ------------------------- Consultar Produto -------------------------
@@ -45,7 +45,7 @@ public class ProdutoController {
     public ResponseEntity<Produto> buscarProdutoPorId(@PathVariable Integer id){
         var produto = produtoService.buscarProdutoPorId(id);        
         if (produto.isPresent()){
-            return ResponseEntity.status(HttpStatus.OK).body(produto.get());
+            return ResponseEntity.status(HttpStatus.CREATED).body(produto.get());
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -55,7 +55,7 @@ public class ProdutoController {
     public ResponseEntity<Produto> atualizarProduto(@PathVariable Integer id, @RequestBody Produto novoProduto) {
             Produto produtoAtualizado = produtoService.atualizarProduto(id, novoProduto);
             if (produtoAtualizado != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(produtoAtualizado);
+            return ResponseEntity.status(HttpStatus.CREATED).body(produtoAtualizado);
             } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
