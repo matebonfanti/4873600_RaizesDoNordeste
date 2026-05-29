@@ -36,6 +36,14 @@ public class Estoque {
 // implementado 27/05
 
 
-//Ponto de melhora, pode ter repetição de produto
-
 //
+
+//Para este MVP, adotou-se a premissa simplificada de que o 'Produto' de venda 
+ //* é o mesmo item controlado no 'Estoque' (ex: unidades de tapioca prontas).
+ //* O Cardápio de uma unidade é, portanto, derivado diretamente dos itens 
+ //* com registro de estoque ativo para aquele local.
+ //* Em um cenário real de operação  a melhorprática seria implementar o conceito de "Ficha Técnica".
+ //* Isso exigiria a separação de responsabilidades em novas entidades:
+ //* 1. Insumo/Ingrediente (Controlados no Estoque - ex: kg de goma, queijo).
+ //* 2. Produto/Cardápio (O item final de venda - ex: Tapioca de Queijo).
+ //* 3. Ficha Técnica (A relação de quais insumos compõem um Produto).
