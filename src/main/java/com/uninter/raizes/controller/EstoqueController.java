@@ -37,10 +37,10 @@ public ResponseEntity<Estoque> adicionarAoEstoque(@RequestParam Integer produtoI
     return ResponseEntity.status(HttpStatus.CREATED).body(estoque);
 }
 
-//----------- Remover Produto do Estoque -----------
-@PatchMapping("/remover")
-public ResponseEntity<Void> removerDoEstoque(@RequestParam Integer unidadeId, @RequestParam Integer produtoId, @RequestParam Integer quantidade){
-    estoqueService.removerEstoque(produtoId, unidadeId, quantidade);
+//----------- Diminuir Produto do Estoque -----------
+@PatchMapping("/diminuir")
+public ResponseEntity<Void> diminuirDoEstoque(@RequestParam Integer unidadeId, @RequestParam Integer produtoId, @RequestParam Integer quantidade){
+    estoqueService.diminuirEstoque(unidadeId, produtoId, quantidade);
     return ResponseEntity.status(HttpStatus.OK).build();
 }
 

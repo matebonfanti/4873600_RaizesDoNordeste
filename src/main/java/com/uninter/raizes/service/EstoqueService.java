@@ -31,7 +31,9 @@ public class EstoqueService {
     public Estoque adicionarEstoque(Integer produtoId, Integer unidadeId, Integer quantidade) {
         Optional<Produto> produtoaux = produtoRepository.findById(produtoId);
         Optional<Unidade> unidadeaux = unidadeRepository.findById(unidadeId);
+        Optional<Estoque> estoqueaux = estoqueRepository.findByProdutoIdAndUnidadeId(produtoId, unidadeId);
 
+        //validações de erros
         if (produtoaux.isEmpty()) {
             throw new IllegalArgumentException("Produto não encontrado com ID: " + produtoId);
         }
@@ -43,22 +45,30 @@ public class EstoqueService {
         if (quantidade <= 0) {
             throw new IllegalArgumentException("A quantidade deve ser maior que zero.");
         }
+        
 
-        Produto produto = produtoaux.get();
-        Unidade unidade = unidadeaux.get();
+        if (estoqueaux.isEmpty()){
+            Produto produto = produtoaux.get();
+            Unidade unidade = unidadeaux.get();
 
+            Estoque estoque = new Estoque();
+            estoque.setProduto(produto);
+            estoque.setUnidade(unidade);
+            estoque.setQuantidade(quantidade);
 
-        Estoque estoque = new Estoque();
-        estoque.setProduto(produto);
-        estoque.setUnidade(unidade);
-        estoque.setQuantidade(quantidade);
+            return estoqueRepository.save(estoque);
 
+        }
+        
+        Estoque estoque = estoqueaux.get();
+        estoque.setQuantidade(estoque.getQuantidade() + quantidade);
         return estoqueRepository.save(estoque);
+
 
 }
 
-//------------------------------- Remover Estoque -----------------------------
-public void removerEstoque(Integer unidadeId, Integer ProdutoId, Integer quantidade){
+//------------------------------- Diminuir Estoque -----------------------------
+public void diminuirEstoque(Integer unidadeId, Integer ProdutoId, Integer quantidade){
 
     if (quantidade <= 0 || quantidade == null) {
         throw new IllegalArgumentException("A quantidade deve ser maior que zero.");
@@ -90,3 +100,11 @@ public List<Estoque> listarEstoquePorUnidade(Integer unidadeId){
     return estoqueRepository.findByUnidadeId(unidadeId);
 }
 }
+
+
+
+
+
+//Ajustado melhoria de Estoque 28/05, somar no  estoque se o produto ja existe, se nao criar um nnovo, para nao ter 
+//repetição no banco de dados.
+

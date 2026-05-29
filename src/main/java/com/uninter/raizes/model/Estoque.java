@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 
 @Entity
-@Table(name = "estoques")
+@Table(name = "estoques", uniqueConstraints = {@UniqueConstraint(columnNames = {"produto_id", "unidade_id"})}) // Ponto de melhoria explicado abaixo
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,3 +34,8 @@ public class Estoque {
 
 
 // implementado 27/05
+
+
+//Ponto de melhora, pode ter repetição de produto
+
+//
