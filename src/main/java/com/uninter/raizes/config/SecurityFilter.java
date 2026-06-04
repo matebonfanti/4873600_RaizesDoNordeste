@@ -2,7 +2,7 @@ package com.uninter.raizes.config;
 
 import com.uninter.raizes.repository.UsuarioRepository;
 import com.uninter.raizes.service.TokenService;
-import com.uninter.raizes.model.Usuario;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

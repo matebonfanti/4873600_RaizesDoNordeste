@@ -45,4 +45,5 @@ public class SecurityConfig {
 }
 
 
-
+//Futura Melhoria: Implementar restrição de rotas de unidade de produtos para somente 
+//o GETENTE poder alterar

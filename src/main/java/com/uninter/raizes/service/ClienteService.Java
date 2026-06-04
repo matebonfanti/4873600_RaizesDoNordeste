@@ -74,7 +74,7 @@ public Cliente atualizarDadosCliente(Integer id, Cliente novoCliente){
         return clienteRepository.save(cliente);
 
     }else {
-        throw new IllegalArgumentException("Cliente não encontrado.");
+        return null;
     }
 }
 
