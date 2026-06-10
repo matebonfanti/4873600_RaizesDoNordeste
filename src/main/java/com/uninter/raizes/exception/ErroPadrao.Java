@@ -109,8 +109,23 @@ class TratadordeErros {
         LocalDateTime.now(),
         request.getRequestURI()
     );
-    return ResponseEntity.status(HttpStatus.CONFLICT).body(erro); 
-}
+    return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);   
+
+    }
+
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ErroPadrao> tratarErroGenerico(
+            RuntimeException ex, HttpServletRequest request) {
+        ErroPadrao erro = new ErroPadrao(
+            "ERRO_INTERNO",
+            ex.getMessage(),
+            new ArrayList<>(),
+            LocalDateTime.now(),
+            request.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(erro); // 500
+    }
 
 
 }
