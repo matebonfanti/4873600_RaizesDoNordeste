@@ -24,7 +24,7 @@ public class CardapioController {
     public ResponseEntity<List<Produto>> consultarCardapio(@PathVariable Integer id){
 
         List<Estoque> estoques = estoqueService.listarEstoquePorUnidade(id);
-        List<Produto> cardapio = estoques.stream().map(Estoque::getProduto).toList();
+        List<Produto> cardapio = estoques.stream().filter(e -> e.getQuantidade() > 0).map(Estoque::getProduto).toList();
         return ResponseEntity.status(HttpStatus.OK).body(cardapio);
     }
 

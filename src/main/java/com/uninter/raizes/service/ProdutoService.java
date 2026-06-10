@@ -59,6 +59,17 @@ public Produto atualizarProduto(Integer id, Produto novoProduto){
     } else {
         return null;
     }
-
 }
+
+//------------------------------ Deleta Produto ------------------------------
+public void deletarProduto(Integer id) {
+    if (!produtoRepository.existsById(id)) {
+        throw new IllegalArgumentException("Produto não encontrado com ID: " + id);
+    }
+    produtoRepository.deleteById(id);
+}
+
+
+
+
 }

@@ -40,7 +40,7 @@ public class Cliente {
     private Boolean aceiteLgpd;
 
     @Column(nullable = false)
-    private Integer pontosFidelidade;
+    private Integer pontosFidelidade = 0;
 
 }
 // Como os construtores são gerados pelo lombok, nao implementei abaixo
