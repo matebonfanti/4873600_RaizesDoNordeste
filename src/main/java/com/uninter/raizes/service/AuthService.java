@@ -1,6 +1,7 @@
 package com.uninter.raizes.service;
 
 import com.uninter.raizes.dto.LoginDTO;
+import com.uninter.raizes.exception.AutenticacaoException;
 import com.uninter.raizes.model.Usuario;
 import com.uninter.raizes.repository.UsuarioRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,14 +27,14 @@ public class AuthService {
 
         Optional<Usuario> usuarioAux = usuarioRepository.findByEmail(dadosLogin.getEmail());
         if (usuarioAux.isEmpty()) {
-            throw new RuntimeException("Usuário não encontrado");
+            throw new AutenticacaoException("Usuário não encontrado");
         }
 
         Usuario usuario = usuarioAux.get();
 
         boolean senhaValida = passwordEncoder.matches(dadosLogin.getSenha(), usuario.getSenha());
         if (!senhaValida) {
-            throw new RuntimeException("Senha inválida");
+            throw new AutenticacaoException("Senha inválida");
         }
 
         return tokenService.gerarToken(usuario);

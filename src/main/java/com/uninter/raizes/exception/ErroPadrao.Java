@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import jakarta.servlet.http.HttpServletRequest;
-
+import com.uninter.raizes.exception.AutenticacaoException;
 
 @Data
 @AllArgsConstructor
@@ -84,4 +84,19 @@ class TratadordeErros {
         );
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(erro);
     }
+
+    @ExceptionHandler(AutenticacaoException.class)
+    public ResponseEntity<ErroPadrao> tratarAutenticacao(
+        AutenticacaoException ex, HttpServletRequest request) {
+    ErroPadrao erro = new ErroPadrao(
+        "AUTENTICACAO_INVALIDA",
+        ex.getMessage(),
+        new ArrayList<>(),
+        LocalDateTime.now(),
+        request.getRequestURI()
+    );
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(erro);
+    }
+
+
 }
