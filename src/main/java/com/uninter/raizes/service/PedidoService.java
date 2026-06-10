@@ -8,7 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.uninter.raizes.enums.CanalPedido;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class PedidoService {
 
@@ -70,7 +72,11 @@ public class PedidoService {
         pedido.setValorTotal(valorTotal);
         pedido.setItens(itensProcessados);
 
-        return pedidoRepository.save(pedido);
+        Pedido pedidosalvo = pedidoRepository.save(pedido);
+        log.info("[AUDITORIA] Pedido criado | pedidoId={} | clienteId={} | unidadeId={} | canal={}",
+        pedidosalvo.getId(), clienteId, unidadeId, dadosPedido.getCanalPedido());
+
+        return pedidosalvo;
     }
 
     @Transactional
@@ -96,6 +102,9 @@ public class PedidoService {
                 );
             }
         }
+
+        log.info("[AUDITORIA] Pagamento mock | pedidoId={} | resultado={} | novoStatus={}",
+        pedidoId, aprovado ? "APROVADO" : "RECUSADO", pedido.getStatusPedido());
 
         return pedidoRepository.save(pedido);
     }
@@ -127,6 +136,8 @@ public class PedidoService {
         }
 
         pedido.setStatusPedido(novoStatus);
+        log.info("[AUDITORIA] Status atualizado | pedidoId={} | novoStatus={}", id, novoStatus);
+
         return pedidoRepository.save(pedido);
     }
 
