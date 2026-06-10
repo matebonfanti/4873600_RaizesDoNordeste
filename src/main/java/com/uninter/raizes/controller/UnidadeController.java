@@ -36,7 +36,7 @@ public class UnidadeController {
     public ResponseEntity<Unidade> buscarUnidadePorId(@PathVariable Integer id){
         var unidade = unidadeService.buscarUnidadePorId(id);
         if (unidade.isPresent()){
-            return ResponseEntity.status(HttpStatus.OK).body(unidade.get());
+            return ResponseEntity.ok(unidade.get());
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -46,7 +46,7 @@ public class UnidadeController {
     @GetMapping("/list")
     public ResponseEntity<List<Unidade>> listarUnidades(){
         List<Unidade> unidades = unidadeService.listarUnidades();
-        return ResponseEntity.status(HttpStatus.OK).body(unidades);
+        return ResponseEntity.ok(unidades);
     }
     
     // ------------------------- Editar Unidade -------------------------
@@ -55,7 +55,7 @@ public class UnidadeController {
         var unidadeExistente = unidadeService.buscarUnidadePorId(id);
         if (unidadeExistente.isPresent()) {
             Unidade unidadeEditada = unidadeService.atualizarUnidade(id, unidade);
-            return ResponseEntity.status(HttpStatus.OK).body(unidadeEditada);
+            return ResponseEntity.ok(unidadeEditada);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
