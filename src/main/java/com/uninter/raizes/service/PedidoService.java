@@ -5,7 +5,7 @@ import com.uninter.raizes.model.*;
 import com.uninter.raizes.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import com.uninter.raizes.enums.CanalPedido;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,4 +99,24 @@ public class PedidoService {
 
         return pedidoRepository.save(pedido);
     }
+
+    public Pedido buscarPorId(Long id) {
+    return pedidoRepository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado."));
+}
+
+    public List<Pedido> listar(CanalPedido canalPedido, StatusPedido status) {
+    if (canalPedido != null && status != null) {
+        return pedidoRepository.findByCanalPedidoAndStatusPedido(canalPedido, status);
+    } else if (canalPedido != null) {
+        return pedidoRepository.findByCanalPedido(canalPedido);
+    } else if (status != null) {
+        return pedidoRepository.findByStatusPedido(status);
+    } else {
+        return pedidoRepository.findAll();
+    }
+}
+
+
+
 }

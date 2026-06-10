@@ -1,5 +1,7 @@
 package com.uninter.raizes.controller;
 
+import com.uninter.raizes.enums.CanalPedido;
+import com.uninter.raizes.enums.StatusPedido;
 import com.uninter.raizes.model.Pedido;
 import com.uninter.raizes.model.Usuario;
 import com.uninter.raizes.service.PedidoService;
@@ -7,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -26,4 +29,19 @@ public class PedidoController {
         Pedido novoPedido = pedidoService.criarPedido(usuarioAutenticado.getId(), unidadeId, dadosPedido);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoPedido);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Pedido> buscarPorId(@PathVariable Long id) {
+        Pedido pedido = pedidoService.buscarPorId(id);
+        return ResponseEntity.ok(pedido);
+    }
+
+
+    @GetMapping
+    public ResponseEntity<List<Pedido>> listar(
+            @RequestParam(required = false) CanalPedido canalPedido,
+            @RequestParam(required = false) StatusPedido status) {
+        List<Pedido> pedidos = pedidoService.listar(canalPedido, status);
+        return ResponseEntity.ok(pedidos);
+}
 }
