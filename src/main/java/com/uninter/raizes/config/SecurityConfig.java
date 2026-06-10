@@ -28,10 +28,11 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
-                    req.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
-                    req.requestMatchers("/estoque/**").hasAuthority("GERENTE"); 
-                    req.anyRequest().authenticated();
-                })
+                req.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
+                req.requestMatchers(HttpMethod.POST, "/usuarios").permitAll(); // cadastro público ✓
+                req.requestMatchers("/estoque/**").hasAuthority("GERENTE");
+                req.anyRequest().authenticated();
+            })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
        
