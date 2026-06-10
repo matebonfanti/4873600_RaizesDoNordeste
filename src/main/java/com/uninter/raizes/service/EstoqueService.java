@@ -10,6 +10,8 @@ import com.uninter.raizes.model.Unidade;
 import java.util.List;
 import java.util.Optional;
 
+import com.uninter.raizes.exception.RegraDeNegocioException;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -81,7 +83,7 @@ public void diminuirEstoque(Integer unidadeId, Integer ProdutoId, Integer quanti
 
     Estoque estoque = estoqueaux.get();
     if (estoque.getQuantidade() < quantidade) {
-        throw new IllegalArgumentException("Quantidade insuficiente em estoque. Quantidade disponível: " + estoque.getQuantidade());
+        throw new RegraDeNegocioException("Quantidade insuficiente em estoque. Quantidade disponível: " + estoque.getQuantidade());
     }
     estoque.setQuantidade(estoque.getQuantidade() - quantidade);
     estoqueRepository.save(estoque);

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import jakarta.servlet.http.HttpServletRequest;
 import com.uninter.raizes.exception.AutenticacaoException;
+import com.uninter.raizes.exception.RegraDeNegocioException;
 
 @Data
 @AllArgsConstructor
@@ -97,6 +98,19 @@ class TratadordeErros {
     );
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(erro);
     }
+
+    @ExceptionHandler(RegraDeNegocioException.class)
+    public ResponseEntity<ErroPadrao> tratarRegraDeNegocio(
+        RegraDeNegocioException ex, HttpServletRequest request) {
+    ErroPadrao erro = new ErroPadrao(
+        "REGRA_DE_NEGOCIO",
+        ex.getMessage(),
+        new ArrayList<>(),
+        LocalDateTime.now(),
+        request.getRequestURI()
+    );
+    return ResponseEntity.status(HttpStatus.CONFLICT).body(erro); 
+}
 
 
 }
