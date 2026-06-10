@@ -29,8 +29,15 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
                 req.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
-                req.requestMatchers(HttpMethod.POST, "/usuarios").permitAll(); // cadastro público ✓
+                req.requestMatchers(HttpMethod.POST, "/usuarios").permitAll();
+                // Somente GERENTE pode gerenciar produtos, unidades e estoque
                 req.requestMatchers("/estoque/**").hasAuthority("GERENTE");
+                req.requestMatchers(HttpMethod.POST,   "/produtos").hasAuthority("GERENTE");
+                req.requestMatchers(HttpMethod.PATCH,  "/produtos/**").hasAuthority("GERENTE");
+                req.requestMatchers(HttpMethod.DELETE, "/produtos/**").hasAuthority("GERENTE");
+                req.requestMatchers(HttpMethod.POST,   "/unidades").hasAuthority("GERENTE");
+                req.requestMatchers(HttpMethod.PATCH,  "/unidades/**").hasAuthority("GERENTE");
+                
                 req.anyRequest().authenticated();
             })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
@@ -48,3 +55,5 @@ public class SecurityConfig {
 
 //Futura Melhoria: Implementar restrição de rotas de unidade de produtos para somente 
 //o GETENTE poder alterar
+
+//10/06 - Ajustes de permssão para somente o gerente alterar produtos, unidades e estoque.
