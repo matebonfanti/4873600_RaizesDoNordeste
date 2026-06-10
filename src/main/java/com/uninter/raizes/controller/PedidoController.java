@@ -44,4 +44,16 @@ public class PedidoController {
         List<Pedido> pedidos = pedidoService.listar(canalPedido, status);
         return ResponseEntity.ok(pedidos);
 }
+
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<Pedido> atualizarStatus(
+        @PathVariable Long id,
+        @RequestParam StatusPedido novoStatus) {
+            
+    Pedido atualizado = pedidoService.atualizarStatus(id, novoStatus);
+    return ResponseEntity.ok(atualizado);
+}
+
+
 }

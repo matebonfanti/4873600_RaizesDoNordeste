@@ -117,6 +117,19 @@ public class PedidoService {
     }
 }
 
+    @Transactional
+    public Pedido atualizarStatus(Long id, StatusPedido novoStatus) {
+        Pedido pedido = pedidoRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado."));
+
+        if (pedido.getStatusPedido() == StatusPedido.CANCELADO) {
+            throw new IllegalArgumentException("Pedido cancelado não pode ser alterado.");
+        }
+
+        pedido.setStatusPedido(novoStatus);
+        return pedidoRepository.save(pedido);
+    }
+
 
 
 }
