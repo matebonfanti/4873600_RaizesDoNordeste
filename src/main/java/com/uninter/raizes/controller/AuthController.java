@@ -12,7 +12,7 @@ import com.uninter.raizes.dto.TokenDTO;
 
 
 @RestController
-@RequestMapping
+@RequestMapping("/auth")
 public class AuthController {
     private final AuthService authService;
 

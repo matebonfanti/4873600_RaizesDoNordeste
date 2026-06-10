@@ -70,8 +70,8 @@ public class EstoqueService {
 //------------------------------- Diminuir Estoque -----------------------------
 public void diminuirEstoque(Integer unidadeId, Integer ProdutoId, Integer quantidade){
 
-    if (quantidade <= 0 || quantidade == null) {
-        throw new IllegalArgumentException("A quantidade deve ser maior que zero.");
+    if (quantidade == null || quantidade <= 0) {
+    throw new IllegalArgumentException("A quantidade deve ser maior que zero.");
     }
 
     Optional<Estoque> estoqueaux = estoqueRepository.findByProdutoIdAndUnidadeId(ProdutoId, unidadeId);
