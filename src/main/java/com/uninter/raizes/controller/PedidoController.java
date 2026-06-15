@@ -2,8 +2,10 @@ package com.uninter.raizes.controller;
 
 import com.uninter.raizes.enums.CanalPedido;
 import com.uninter.raizes.enums.StatusPedido;
+import com.uninter.raizes.model.Cliente;
 import com.uninter.raizes.model.Pedido;
 import com.uninter.raizes.model.Usuario;
+import com.uninter.raizes.service.ClienteService;
 import com.uninter.raizes.service.PedidoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,17 +18,19 @@ import java.util.List;
 public class PedidoController {
 
     private final PedidoService pedidoService;
+    private final ClienteService clienteService;
 
-    public PedidoController(PedidoService pedidoService) {
+    public PedidoController(PedidoService pedidoService, ClienteService clienteService) {
         this.pedidoService = pedidoService;
+        this.clienteService = clienteService;
     }
 
     @PostMapping
     public ResponseEntity<Pedido> criarPedido(@AuthenticationPrincipal Usuario usuarioAutenticado,
-                                              @RequestParam Integer unidadeId,
-                                              @RequestBody Pedido dadosPedido) {
-        
-        Pedido novoPedido = pedidoService.criarPedido(usuarioAutenticado.getId(), unidadeId, dadosPedido);
+                                                  @RequestParam Integer unidadeId,
+                                                  @RequestBody Pedido dadosPedido) {
+        Cliente cliente = clienteService.buscarClientePorEmail(usuarioAutenticado.getEmail());
+        Pedido novoPedido = pedidoService.criarPedido(cliente.getId(), unidadeId, dadosPedido);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoPedido);
     }
 

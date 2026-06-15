@@ -63,6 +63,12 @@ public Cliente salvarCliente(Cliente cliente){
         return clienteRepository.findAll();
     }
 
+// ------------------------- Buscar Cliente por Email -------------------------
+public Cliente buscarClientePorEmail(String email) {
+    return clienteRepository.findByEmail(email)
+        .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado para o email: " + email));
+}
+
 // ----------------------- Atualizar dados -----------------------
 public Cliente atualizarDadosCliente(Integer id, Cliente novoCliente){
 
