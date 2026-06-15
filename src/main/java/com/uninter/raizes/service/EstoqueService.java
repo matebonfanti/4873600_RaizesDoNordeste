@@ -10,7 +10,9 @@ import com.uninter.raizes.model.Unidade;
 import java.util.List;
 import java.util.Optional;
 
+import com.uninter.raizes.exception.RecursoNaoEncontradoException;
 import com.uninter.raizes.exception.RegraDeNegocioException;
+
 
 import org.springframework.stereotype.Service;
 
@@ -94,10 +96,9 @@ public void diminuirEstoque(Integer unidadeId, Integer ProdutoId, Integer quanti
 
 //------------------------------- Consultar Estoque -----------------------------
 public List<Estoque> listarEstoquePorUnidade(Integer unidadeId){
-
     Optional<Unidade> unidadeaux = unidadeRepository.findById(unidadeId);
     if (unidadeaux.isEmpty()) {
-        throw new IllegalArgumentException("Unidade não encontrada com ID: " + unidadeId);
+        throw new RecursoNaoEncontradoException("Unidade não encontrada com ID: " + unidadeId);
     }
     return estoqueRepository.findByUnidadeId(unidadeId);
 }

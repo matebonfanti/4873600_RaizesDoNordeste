@@ -30,12 +30,6 @@ class DetalhesErro {
 }
 
 
-class RecursoNaoEncontradoException extends RuntimeException {
-    public RecursoNaoEncontradoException(String mensagem) {
-        super(mensagem);
-    }
-}
-
 class CredenciaisInvalidasException extends RuntimeException {
     public CredenciaisInvalidasException(String mensagem) {
         super(mensagem);
