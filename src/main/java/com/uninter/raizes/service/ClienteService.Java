@@ -1,4 +1,5 @@
 package com.uninter.raizes.service;
+import com.uninter.raizes.exception.RecursoNaoEncontradoException;
 import com.uninter.raizes.model.Cliente;
 import com.uninter.raizes.repository.ClienteRepository;
 import org.springframework.stereotype.Service;
@@ -90,7 +91,7 @@ public Cliente atualizarDadosCliente(Integer id, Cliente novoCliente){
         return clienteRepository.save(cliente);
     
     }else {
-        throw new IllegalArgumentException("Cliente não encontrado com ID: " + id);
+        throw new RecursoNaoEncontradoException("Cliente não encontrado com ID: " + id);
     }
 }
 

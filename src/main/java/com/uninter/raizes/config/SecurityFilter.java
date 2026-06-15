@@ -27,6 +27,11 @@ public class SecurityFilter extends OncePerRequestFilter {
     private UsuarioRepository usuarioRepository;
 
     @Override
+    protected boolean shouldNotFilterErrorDispatch() {
+        return true;
+    }
+
+    @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
         
