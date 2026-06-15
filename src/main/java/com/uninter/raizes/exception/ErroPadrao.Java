@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import jakarta.servlet.http.HttpServletRequest;
-import com.uninter.raizes.exception.AutenticacaoException;
-import com.uninter.raizes.exception.RegraDeNegocioException;
+
 
 @Data
 @AllArgsConstructor

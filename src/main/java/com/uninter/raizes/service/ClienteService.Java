@@ -35,9 +35,14 @@ public Cliente salvarCliente(Cliente cliente){
     // verifica o email, se ja ta cadasttrado retorna erro, se não, salva
     if (clienteRepository.findByEmail(cliente.getEmail()).isPresent()) {
         throw new IllegalArgumentException("O email já está cadastrado.");
-    }else {
-        return clienteRepository.save(cliente);
     }
+    
+     if (cliente.getPontosFidelidade() == null) {
+        cliente.setPontosFidelidade(0);
+    }
+
+        return clienteRepository.save(cliente);
+    
 
 }
 
@@ -62,19 +67,24 @@ public Cliente salvarCliente(Cliente cliente){
 public Cliente atualizarDadosCliente(Integer id, Cliente novoCliente){
 
     Optional<Cliente> clienteAtual = clienteRepository.findById(id);
-    if (clienteAtual.isPresent()){
+     if (clienteAtual.isPresent()){
         Cliente cliente = clienteAtual.get();
-
-        cliente.setNome(novoCliente.getNome());
-        cliente.setEmail(novoCliente.getEmail());
-        cliente.setTelefone(novoCliente.getTelefone());
-        cliente.setDataNascimento(novoCliente.getDataNascimento());
-        
-
+        if (novoCliente.getNome() != null) {
+            cliente.setNome(novoCliente.getNome());
+        }
+        if (novoCliente.getEmail() != null) {
+            cliente.setEmail(novoCliente.getEmail());
+        }
+        if (novoCliente.getTelefone() != null) {
+            cliente.setTelefone(novoCliente.getTelefone());
+        }
+        if (novoCliente.getDataNascimento() != null) {
+            cliente.setDataNascimento(novoCliente.getDataNascimento());
+        }
         return clienteRepository.save(cliente);
-
+    
     }else {
-        return null;
+        throw new IllegalArgumentException("Cliente não encontrado com ID: " + id);
     }
 }
 

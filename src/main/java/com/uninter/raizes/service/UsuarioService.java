@@ -18,12 +18,12 @@ public class UsuarioService {
         
     }
 
-    public Usuario cadastrar(Usuario usuario) {
-
-        
-        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
-        return usuarioRepository.save(usuario);
-
-
+   public Usuario cadastrar(Usuario usuario){
+    if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
+        throw new IllegalArgumentException("Email já cadastrado.");
     }
+    String senhaCodificada = passwordEncoder.encode(usuario.getSenha());
+    usuario.setSenha(senhaCodificada);
+    return usuarioRepository.save(usuario);
+}
 }

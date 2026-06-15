@@ -41,14 +41,21 @@ public class UnidadeService {
         Optional<Unidade> unidadeExistente = unidadeRepository.findById(id);
         
         if (unidadeExistente.isPresent()){
-            Unidade unidade = unidadeExistente.get();
+        Unidade unidade = unidadeExistente.get();
+        if (novaUnidade.getNome() != null) {
             unidade.setNome(novaUnidade.getNome());
-            unidade.setCidade(novaUnidade.getCidade());
-            unidade.setDescricao(novaUnidade.getDescricao());
-            return unidadeRepository.save(unidade);
-        } else {
-            return null;
         }
+        if (novaUnidade.getCidade() != null) {
+            unidade.setCidade(novaUnidade.getCidade());
+        }
+        if (novaUnidade.getDescricao() != null) {
+            unidade.setDescricao(novaUnidade.getDescricao());
+        }
+        return unidadeRepository.save(unidade);
+    } else {
+        throw new IllegalArgumentException("Unidade não encontrada com ID: " + id);
+    }
+
 
     }
 

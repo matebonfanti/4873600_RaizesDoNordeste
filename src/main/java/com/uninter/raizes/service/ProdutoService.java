@@ -52,12 +52,18 @@ public Produto atualizarProduto(Integer id, Produto novoProduto){
     
     if (produtoExistente.isPresent()){
         Produto produto = produtoExistente.get();
-        produto.setNome(novoProduto.getNome());
-        produto.setDescricao(novoProduto.getDescricao());
-        produto.setPreco(novoProduto.getPreco());
-        return produtoRepository.save(produto);
+        if (novoProduto.getNome() != null) {
+            produto.setNome(novoProduto.getNome());
+        }
+        if (novoProduto.getDescricao() != null) {
+            produto.setDescricao(novoProduto.getDescricao());
+        }
+        if (novoProduto.getPreco() != null) {
+            produto.setPreco(novoProduto.getPreco());
+        }
+        return produtoRepository.save(produto); 
     } else {
-        return null;
+        throw new IllegalArgumentException("Produto não encontrado com ID: " + id);
     }
 }
 
