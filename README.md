@@ -1,16 +1,9 @@
-🌵 Raízes do Nordeste — API Back-end
+ 🌵 Raízes do Nordeste — API Back-end
 
 Aluno: Mateus Bonfanti (RU 4873600)
-
-
 Disciplina: Projeto Multidisciplinar: Trilha Back-end
 
-<<<<<<< HEAD
 
-📌 Sobre o Projeto
-API REST desenvolvida como projeto final para a rede de restaurantes "Raízes do Nordeste". O sistema centraliza pedidos oriundos de múltiplos canais (App, Web, Totem e Balcão), realiza a gestão de estoque individualizada por unidade, controla o acesso de usuários por meio de perfis hierárquicos e simula o processamento financeiro. A API também atende aos requisitos de conformidade com a LGPD.
-=======
->>>>>>> a8ade700de3ab4f9a89cc0cff90d4d9d92368f79
 
 🚀 Tecnologias Utilizadas
 Java 17 / 21
